@@ -114,7 +114,7 @@ class UserInfoCog(commands.Cog):
                 value=userData.get(f"info_data_{i}", ""),
             )
 
-        embed.add_field(name="こおり鬼モード", value=f'{userData.get("play_info_rating_1", 1000)} ({userData.get("rank_1", 1000)}位)').add_field(name="チームバトルモード", value=f'{userData.get("play_info_rating_2", 1000)} ({userData.get("rank_2", 1000)}位)').add_field(name="1対1モード", value=f'{userData.get("play_info_rating_3", 1000)} ({userData.get("rank_3", 1000)}位)').add_field(name="旗取りモード", value=f'{userData.get("play_info_rating_4", 1000)} ({userData.get("rank_4", 1000)}位)').add_field(name="墜落モード", value=f'{userData.get("play_info_rating_5", 1000)} ({userData.get("rank_5", 1000)}位)').add_field(name="こおり鬼(チーム)", value=f'{userData.get("play_info_rating_5", 1000)} ({userData.get("rank_5", 1000)}位)')
+        embed.add_field(name="こおり鬼モード", value=f'{userData.get("play_info_rating_1", 1000)} ({userData.get("rank_1", 1000)}位)').add_field(name="チームバトルモード", value=f'{userData.get("play_info_rating_2", 1000)} ({userData.get("rank_2", 1000)}位)').add_field(name="1対1モード", value=f'{userData.get("play_info_rating_3", 1000)} ({userData.get("rank_3", 1000)}位)').add_field(name="旗取りモード", value=f'{userData.get("play_info_rating_4", 1000)} ({userData.get("rank_4", 1000)}位)').add_field(name="墜落モード", value=f'{userData.get("play_info_rating_5", 1000)} ({userData.get("rank_5", 1000)}位)').add_field(name="こおり鬼(チーム)", value=f'{userData.get("play_info_rating_6", 1000)} ({userData.get("rank_6", 1000)}位)')
         await interaction.followup.send(embed=embed)
 
 
