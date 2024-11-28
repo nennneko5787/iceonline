@@ -89,7 +89,7 @@ class UserInfoCog(commands.Cog):
             interaction.locale,
         )
 
-        if userData.get("birthday_secret", False):
+        if not userData.get("birthday_secret", False):
             embed.add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("誕生日"),
