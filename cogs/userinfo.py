@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 
 import httpx
 import discord
@@ -90,12 +91,14 @@ class UserInfoCog(commands.Cog):
         )
 
         if not userData.get("birthday_secret", False):
+            birthDayDateTime = datetime.strptime(userData.get("birthday", "1/1/1970 00:00:00 AM"), "%m/%d/%Y %I:%M:%S %p")
+            
             embed.add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("誕生日"),
                     interaction.locale,
                 ),
-                value=userData.get("birthday", ""),
+                value=discord.utils.format_dt(birthDayDateTime),
             )
 
         for i in range(1, 8):
