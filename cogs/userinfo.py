@@ -97,9 +97,6 @@ class UserInfoCog(commands.Cog):
                 ),
                 value=userData.get("birthday", ""),
             )
-            birthDayFlag = True
-        else:
-            birthDayFlag = False
 
         for i in range(1, 8):
             if (userData.get(f"info_title_{i}", "") == "") and (
@@ -115,7 +112,6 @@ class UserInfoCog(commands.Cog):
             embed.add_field(
                 name=info,
                 value=userData.get(f"info_data_{i}", ""),
-                inline=True if birthDayFlag else False,
             )
 
         await interaction.followup.send(embed=embed)
