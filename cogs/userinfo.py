@@ -102,7 +102,7 @@ class UserInfoCog(commands.Cog):
                 value=discord.utils.format_dt(birthDayDateTime),
             )
 
-        for i in range(1, 8):
+        for i in range(1, 9):
             if (userData.get(f"info_title_{i}", "") == "") and (
                 userData.get(f"info_data_{i}", "") == ""
             ):
