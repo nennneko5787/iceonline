@@ -92,7 +92,7 @@ class UserInfoCog(commands.Cog):
         )
 
         if not userData.get("birthday_secret", False):
-            birthDayDateTime = datetime.strptime(userData.get("birthday", "1/1/1970 00:00:00 AM"), "%m/%d/%Y %I:%M:%S %p").replace(tzinfo=ZoneInfo("Asia/Tokyo")
+            birthDayDateTime = datetime.strptime(userData.get("birthday", "1/1/1970 00:00:00 AM"), "%m/%d/%Y %I:%M:%S %p").replace(tzinfo=ZoneInfo("Asia/Tokyo"))
             
             embed.add_field(
                 name=await self.bot.tree.translator.translate(
