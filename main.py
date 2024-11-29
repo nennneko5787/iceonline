@@ -36,6 +36,7 @@ async def on_ready():
 async def setup_hook():
     await bot.tree.set_translator(FreezeTranslator())
     await bot.load_extension("cogs.userinfo")
+    await bot.load_extension("cogs.link")
     await bot.load_extension("cogs.admin")
 
 

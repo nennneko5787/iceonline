@@ -3,3 +3,4 @@ httpx
 fastapi[all]
 asyncpg
 python-dotenv
+tzdata
