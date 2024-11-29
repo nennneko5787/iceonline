@@ -19,7 +19,7 @@ class QuickMatchCog(commands.Cog):
         if interaction.type == discord.InteractionType.component:
             customId = interaction.data["custom_id"]
             customField = customId.split(",")
-            if customField[0] == "profile":
+            if customField[0] == "quickmatch":
                 await self.responseQuickMatch(
                     interaction,
                     customField[2],
