@@ -238,6 +238,7 @@ class AccountLinkCog(commands.Cog):
                     },
                 )
             ),
+            colour=discord.Colour.blurple(),
         )
 
         await interaction.followup.send(embed=embed)
