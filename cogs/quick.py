@@ -105,7 +105,7 @@ class QuickMatchCog(commands.Cog):
                 )
             case 23:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("不明"), locale
+                    app_commands.locale_str("崩壊モード"), locale
                 )
             case 24:
                 return await self.bot.tree.translator.translate(
