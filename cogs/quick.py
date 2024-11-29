@@ -203,7 +203,7 @@ class QuickMatchCog(commands.Cog):
                     interaction.locale,
                 ),
             )
-            await interaction.followup.send(embed=embed)
+            await interaction.followup.send(embed=embed, ephemeral=True)
             return
 
         response = await self.client.post(
