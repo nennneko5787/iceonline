@@ -18,143 +18,143 @@ class QuickMatchCog(commands.Cog):
         match (index):
             case 0:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("こおり鬼モード")
+                    app_commands.locale_str("こおり鬼モード"), locale
                 )
             case 1:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("チームバトルモード")
+                    app_commands.locale_str("チームバトルモード"), locale
                 )
             case 2:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("(古い)1対1モード")
+                    app_commands.locale_str("(古い)1対1モード"), locale
                 )
             case 3:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("1対1モード")
+                    app_commands.locale_str("1対1モード"), locale
                 )
             case 5:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("旗取りモード")
+                    app_commands.locale_str("旗取りモード"), locale
                 )
             case 7:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("墜落モード")
+                    app_commands.locale_str("墜落モード"), locale
                 )
             case 8:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("こおり鬼(チーム)")
+                    app_commands.locale_str("こおり鬼(チーム)"), locale
                 )
             case 9:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("巨人モード")
+                    app_commands.locale_str("巨人モード"), locale
                 )
             case 10:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("マラソンモード")
+                    app_commands.locale_str("マラソンモード"), locale
                 )
             case 11:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("不明")
+                    app_commands.locale_str("不明"), locale
                 )
             case 12:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("撮影モード")
+                    app_commands.locale_str("撮影モード"), locale
                 )
             case 13:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("占領モード")
+                    app_commands.locale_str("占領モード"), locale
                 )
             case 14:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("警察と泥棒モード")
+                    app_commands.locale_str("警察と泥棒モード"), locale
                 )
             case 15:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("墜落モード(1vs1)")
+                    app_commands.locale_str("墜落モード(1vs1)"), locale
                 )
             case 16:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("マフィアモード")
+                    app_commands.locale_str("マフィアモード"), locale
                 )
             case 17:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("爆弾モード")
+                    app_commands.locale_str("爆弾モード"), locale
                 )
             case 19:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("墜落モード(個展)")
+                    app_commands.locale_str("墜落モード(個展)"), locale
                 )
             case 21:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("かくれんぼモード")
+                    app_commands.locale_str("かくれんぼモード"), locale
                 )
             case 22:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("迷路モード")
+                    app_commands.locale_str("迷路モード"), locale
                 )
             case 23:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("不明")
+                    app_commands.locale_str("不明"), locale
                 )
             case 24:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("崩壊モード")
+                    app_commands.locale_str("崩壊モード"), locale
                 )
             case 25:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("ひっくり返しモード")
+                    app_commands.locale_str("ひっくり返しモード"), locale
                 )
             case 29:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("だるまさんがころんだモード")
+                    app_commands.locale_str("だるまさんがころんだモード"), locale
                 )
             case 30:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("薄氷モード")
+                    app_commands.locale_str("薄氷モード"), locale
                 )
             case 31:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("宝探しモード")
+                    app_commands.locale_str("宝探しモード"), locale
                 )
             case 32:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("迷路エスケープモード")
+                    app_commands.locale_str("迷路エスケープモード"), locale
                 )
             case 33:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("クイズモード")
+                    app_commands.locale_str("クイズモード"), locale
                 )
             case 35:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("チームデスマッチモード")
+                    app_commands.locale_str("チームデスマッチモード"), locale
                 )
             case 38:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("雪玉を避けるモード")
+                    app_commands.locale_str("雪玉を避けるモード"), locale
                 )
             case 40:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("雪合戦モード")
+                    app_commands.locale_str("雪合戦モード"), locale
                 )
             case 41:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("超能力こおり鬼モード")
+                    app_commands.locale_str("超能力こおり鬼モード"), locale
                 )
             case 42:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("フリーズボールモード")
+                    app_commands.locale_str("フリーズボールモード"), locale
                 )
             case 44:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("王騎士モード")
+                    app_commands.locale_str("王騎士モード"), locale
                 )
             case 45:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("変身かくれんぼモード")
+                    app_commands.locale_str("変身かくれんぼモード"), locale
                 )
             case _:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("不明")
+                    app_commands.locale_str("不明"), locale
                 )
 
     # {"current_mode_index":13,"left_sec":148,"msg":"OK"}
