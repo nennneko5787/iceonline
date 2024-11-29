@@ -9,7 +9,7 @@ from discord.ext import commands
 from .database import Database
 
 
-class AccountLinkCog(commands.Cog):
+class QuickMatchCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.client = httpx.AsyncClient()
@@ -245,4 +245,4 @@ class AccountLinkCog(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(AccountLinkCog(bot))
+    await bot.add_cog(QuickMatchCog(bot))
