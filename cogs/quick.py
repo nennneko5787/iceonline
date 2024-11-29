@@ -14,6 +14,19 @@ class QuickMatchCog(commands.Cog):
         self.bot = bot
         self.client = httpx.AsyncClient()
 
+    @commands.Cog.listener()
+    async def on_interaction(self, interaction: discord.Interaction):
+        if interaction.type == discord.InteractionType.component:
+            customId = interaction.data["custom_id"]
+            customField = customId.split(",")
+            if customField[0] == "profile":
+                await self.responseQuickMatch(
+                    interaction,
+                    customField[2],
+                    relativeSeason=int(customField[3]),
+                    editInteraction=True,
+                )
+
     async def detectMode(self, index: int, locale: discord.Locale):
         match (index):
             case 0:
@@ -165,6 +178,11 @@ class QuickMatchCog(commands.Cog):
         ),
     )
     async def quickMatchCommand(self, interaction: discord.Interaction):
+        await self.responseQuickMatch(interaction)
+
+    async def responseQuickMatch(
+        self, interaction: discord.Interaction, editInteraction: bool
+    ):
         await interaction.response.defer()
         row = await Database.pool.fetchrow(
             "SELECT * FROM members WHERE id = $1", interaction.user.id
@@ -243,7 +261,19 @@ class QuickMatchCog(commands.Cog):
             colour=discord.Colour.blurple(),
         )
 
-        await interaction.followup.send(embed=embed)
+        view = discord.ui.View(timeout=None)
+        view.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.primary,
+                emoji="🔄️",
+                custom_id=f"quickmatch",
+            )
+        )
+
+        if editInteraction:
+            await interaction.edit_original_response(embed=embed, view=view)
+        else:
+            await interaction.followup.send(embed=embed, view=view)
 
 
 async def setup(bot: commands.Bot):
