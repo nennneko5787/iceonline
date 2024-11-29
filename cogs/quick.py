@@ -191,7 +191,7 @@ class QuickMatchCog(commands.Cog):
             return
 
         response = await self.client.post(
-            "https://iceonline.azurewebsites.net/User/GetUserInfo",
+            "https://iceonline.azurewebsites.net/Play/GetQuickMatchData",
             headers={"content-type": "application/json; charset=utf-8"},
             json={"user_index": row["member_id"]},
         )
