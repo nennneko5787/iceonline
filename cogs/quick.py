@@ -227,7 +227,8 @@ class QuickMatchCog(commands.Cog):
 
         embed = discord.Embed(
             title=await self.bot.tree.translator.translate(
-                app_commands.locale_str("現在のクイックマッチの情報")
+                app_commands.locale_str("現在のクイックマッチの情報"),
+                interaction.locale,
             ),
             description=await self.bot.tree.translator.translate(
                 app_commands.locale_str(
@@ -236,7 +237,8 @@ class QuickMatchCog(commands.Cog):
                         "mode": mode,
                         "switchTime": discord.utils.format_dt(switchTime, style="R"),
                     },
-                )
+                ),
+                interaction.locale,
             ),
             colour=discord.Colour.blurple(),
         )
