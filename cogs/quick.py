@@ -263,7 +263,7 @@ class QuickMatchCog(commands.Cog):
         view.add_item(
             discord.ui.Button(
                 style=discord.ButtonStyle.primary,
-                emoji="🔄️",
+                emoji=":arrows_counterclockwise:",
                 custom_id=f"quickmatch",
             )
         )
