@@ -22,8 +22,6 @@ class QuickMatchCog(commands.Cog):
             if customField[0] == "quickmatch":
                 await self.responseQuickMatch(
                     interaction,
-                    customField[2],
-                    relativeSeason=int(customField[3]),
                     editInteraction=True,
                 )
 
@@ -181,7 +179,7 @@ class QuickMatchCog(commands.Cog):
         await self.responseQuickMatch(interaction)
 
     async def responseQuickMatch(
-        self, interaction: discord.Interaction, editInteraction: bool
+        self, interaction: discord.Interaction, editInteraction: bool = False
     ):
         await interaction.response.defer()
         row = await Database.pool.fetchrow(
