@@ -236,7 +236,7 @@ class EditProfileCog(commands.Cog):
                 ),
                 colour=discord.Colour.red(),
             )
-        await interaction.followup.send(embed=embed)
+        await interaction.followup.send(embed=embed, ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
