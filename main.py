@@ -40,6 +40,7 @@ async def setup_hook():
     await bot.load_extension("cogs.quick")
     await bot.load_extension("cogs.clan")
     await bot.load_extension("cogs.edit")
+    await bot.load_extension("cogs.game_ranking")
     await bot.load_extension("cogs.admin")
 
 
