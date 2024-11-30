@@ -41,6 +41,45 @@ class UserInfoCog(commands.Cog):
                     editInteraction=True,
                 )
 
+    async def getInfoTitle(self, index: int, locale: discord.Locale):
+        match index:
+            case 1:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("血液型"), locale
+                )
+            case 2:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("MBTI"), locale
+                )
+            case 3:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("趣味"), locale
+                )
+            case 4:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("特技"), locale
+                )
+            case 5:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("好きなモード"), locale
+                )
+            case 6:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("好きな食べ物"), locale
+                )
+            case 7:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("嫌いな食べ物"), locale
+                )
+            case 8:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("お気に入りの曲"), locale
+                )
+            case _:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str(f"情報{index}"), locale
+                )
+
     @app_commands.command(
         name="profile",
         description=app_commands.locale_str("プレイヤーのプロフィールを確認します。"),
@@ -150,13 +189,11 @@ class UserInfoCog(commands.Cog):
             )
 
         for i in range(1, 9):
-            if (userData.get(f"info_title_{i}", "") == "") and (
-                userData.get(f"info_data_{i}", "") == ""
-            ):
+            if userData.get(f"info_data_{i}", "") == "":
                 continue
 
             if userData.get(f"info_title_{i}", "") == "":
-                info = f"{infoLocale}{i}"
+                info = await self.getInfoTitle(i, interaction.locale)
             else:
                 info = userData.get(f"info_title_{i}", "")
 

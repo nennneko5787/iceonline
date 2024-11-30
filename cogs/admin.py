@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import traceback
 
 
 class AdminCog(commands.Cog):
@@ -17,6 +18,7 @@ class AdminCog(commands.Cog):
             await self.bot.tree.sync()
             await ctx.send("success")
         except:
+            traceback.print_exc()
             await ctx.send("failed")
 
 
