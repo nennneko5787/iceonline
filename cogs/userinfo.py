@@ -113,7 +113,14 @@ class UserInfoCog(commands.Cog):
                     app_commands.locale_str("カップル"),
                     interaction.locale,
                 ),
-                value=userData.get("couple_nickname", ""),
+                value=(
+                    userData.get("couple_nickname", "#")
+                    if userData.get("couple_nickname", "#") != "#"
+                    else await self.bot.tree.translator.translate(
+                        app_commands.locale_str("カップルなし"),
+                        interaction.locale,
+                    )
+                ),
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
@@ -170,42 +177,96 @@ class UserInfoCog(commands.Cog):
                     app_commands.locale_str("こおり鬼モード"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_1", 1000)} ({userData.get("rank_1", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_1", 1000)} ({userData.get("rank_1", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("チームバトルモード"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_2", 1000)} ({userData.get("rank_2", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_2", 1000)} ({userData.get("rank_2", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("1対1モード"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_3", 1000)} ({userData.get("rank_3", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_3", 1000)} ({userData.get("rank_3", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("旗取りモード"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_4", 1000)} ({userData.get("rank_4", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_4", 1000)} ({userData.get("rank_4", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("墜落モード"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_5", 1000)} ({userData.get("rank_5", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_5", 1000)} ({userData.get("rank_5", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
             .add_field(
                 name=await self.bot.tree.translator.translate(
                     app_commands.locale_str("こおり鬼(チーム)"),
                     interaction.locale,
                 ),
-                value=f'{userData.get("play_info_rating_6", 1000)} ({userData.get("rank_6", 1000)}位)',
+                value=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "{rank}位",
+                        fmt_arg={
+                            "rank": f'{userData.get("play_info_rating_6", 1000)} ({userData.get("rank_6", 99999)}'
+                        },
+                    ),
+                    interaction.locale,
+                )
+                + ")",
             )
         )
 

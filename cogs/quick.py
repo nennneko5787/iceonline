@@ -43,9 +43,13 @@ class QuickMatchCog(commands.Cog):
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("1対1モード"), locale
                 )
-            case 5:
+            case 4:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("旗取りモード"), locale
+                )
+            case 6:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("巨人モード"), locale
                 )
             case 7:
                 return await self.bot.tree.translator.translate(
@@ -93,7 +97,7 @@ class QuickMatchCog(commands.Cog):
                 )
             case 19:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("墜落モード(個展)"), locale
+                    app_commands.locale_str("墜落モード(個人)"), locale
                 )
             case 21:
                 return await self.bot.tree.translator.translate(
@@ -109,7 +113,7 @@ class QuickMatchCog(commands.Cog):
                 )
             case 24:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("崩壊モード"), locale
+                    app_commands.locale_str("ひっくり返しモード"), locale
                 )
             case 25:
                 return await self.bot.tree.translator.translate(
@@ -137,11 +141,11 @@ class QuickMatchCog(commands.Cog):
                 )
             case 35:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("チームデスマッチモード"), locale
+                    app_commands.locale_str("デスマッチモード"), locale
                 )
             case 38:
                 return await self.bot.tree.translator.translate(
-                    app_commands.locale_str("雪玉を避けるモード"), locale
+                    app_commands.locale_str("雪玉避けモード"), locale
                 )
             case 40:
                 return await self.bot.tree.translator.translate(

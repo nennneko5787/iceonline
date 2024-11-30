@@ -38,6 +38,7 @@ async def setup_hook():
     await bot.load_extension("cogs.userinfo")
     await bot.load_extension("cogs.link")
     await bot.load_extension("cogs.quick")
+    await bot.load_extension("cogs.clan")
     await bot.load_extension("cogs.admin")
 
 
