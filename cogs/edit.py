@@ -75,7 +75,7 @@ class EditProfileCog(commands.Cog):
             app_commands.Choice(name=app_commands.locale_str("いいえ"), value=False),
         ]
     )
-    async def edit(
+    async def editCommand(
         self,
         interaction: discord.Interaction,
         introduction: str = None,
@@ -118,6 +118,7 @@ class EditProfileCog(commands.Cog):
                     ),
                     interaction.locale,
                 ),
+                color=discord.Colour.red(),
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
             return

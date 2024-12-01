@@ -206,6 +206,7 @@ class QuickMatchCog(commands.Cog):
                     ),
                     interaction.locale,
                 ),
+                color=discord.Colour.red(),
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
             return

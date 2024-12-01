@@ -41,6 +41,10 @@ async def setup_hook():
     await bot.load_extension("cogs.clan")
     await bot.load_extension("cogs.edit")
     await bot.load_extension("cogs.game_ranking")
+    await bot.load_extension("cogs.friend")
+    await bot.load_extension("cogs.discord2user")
+    await bot.load_extension("cogs.week_popular_ranking")
+    await bot.load_extension("cogs.all_popular_ranking")
     await bot.load_extension("cogs.admin")
 
 

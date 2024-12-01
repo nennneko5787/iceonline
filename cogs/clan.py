@@ -75,7 +75,7 @@ class ClanInfoCog(commands.Cog):
     )
     @app_commands.rename(clanname=app_commands.locale_str("クラン名"))
     @app_commands.describe(clanname=app_commands.locale_str("クランの名前"))
-    async def clan(self, interaction: discord.Interaction, clanname: str):
+    async def clanCommand(self, interaction: discord.Interaction, clanname: str):
         await interaction.response.defer()
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/Clan/GetClanInfo_2",

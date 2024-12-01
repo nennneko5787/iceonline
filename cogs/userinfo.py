@@ -95,9 +95,12 @@ class UserInfoCog(commands.Cog):
         nickname: str,
         *,
         relativeSeason: int = -1,
+        ephemeral: bool = False,
         editInteraction: bool = False,
+        isResponsed: bool = False,
     ):
-        await interaction.response.defer()
+        if not isResponsed:
+            await interaction.response.defer(ephemeral=ephemeral)
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/User/GetUserInfo",
             headers={"content-type": "application/json; charset=utf-8"},
@@ -341,7 +344,9 @@ class UserInfoCog(commands.Cog):
                 embeds=[profileEmbed, rankEmbed], view=view
             )
         else:
-            await interaction.followup.send(embeds=[profileEmbed, rankEmbed], view=view)
+            await interaction.followup.send(
+                embeds=[profileEmbed, rankEmbed], view=view, ephemeral=ephemeral
+            )
 
 
 async def setup(bot: commands.Bot):
