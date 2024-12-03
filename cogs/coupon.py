@@ -19,7 +19,7 @@ class CouponCog(commands.Cog):
         description=app_commands.locale_str("クーポンを使用します。"),
     )
     async def quickMatchCommand(self, interaction: discord.Interaction):
-        await interaction.response.defer(, ephemeral=True)
+        await interaction.response.defer(ephemeral=True)
         row = await Database.pool.fetchrow(
             "SELECT * FROM members WHERE id = $1", interaction.user.id
         )
