@@ -18,7 +18,9 @@ class CouponCog(commands.Cog):
         name="coupon",
         description=app_commands.locale_str("クーポンを使用します。"),
     )
-    async def quickMatchCommand(self, interaction: discord.Interaction):
+    @app_commands.rename(coupon="クーポン")
+    @app_commands.describe(coupon="使用するクーポン。")
+    async def couponCommand(self, interaction: discord.Interaction, coupon: str):
         await interaction.response.defer(ephemeral=True)
         row = await Database.pool.fetchrow(
             "SELECT * FROM members WHERE id = $1", interaction.user.id
@@ -48,7 +50,7 @@ class CouponCog(commands.Cog):
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/User/UseCoupon_2",
             headers={"content-type": "application/json; charset=utf-8"},
-            json={"user_index": "1955121", "coupon_name": "あああ"},
+            json={"user_index": "1955121", "coupon_name": coupon},
         )
         if response.status_code != 200:
             embed = discord.Embed(
