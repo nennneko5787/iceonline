@@ -19,7 +19,7 @@ class CouponCog(commands.Cog):
         description=app_commands.locale_str("クーポンを使用します。"),
     )
     async def quickMatchCommand(self, interaction: discord.Interaction):
-        await interaction.response.defer()
+        await interaction.response.defer(, ephemeral=True)
         row = await Database.pool.fetchrow(
             "SELECT * FROM members WHERE id = $1", interaction.user.id
         )
@@ -58,7 +58,7 @@ class CouponCog(commands.Cog):
                 ),
                 colour=discord.Colour.red(),
             )
-            await interaction.followup.send(embed=embed)
+            await interaction.followup.send(embed=embed, ephemeral=True)
             return
 
         result = response.text
@@ -72,7 +72,7 @@ class CouponCog(commands.Cog):
                 ),
                 colour=discord.Colour.red(),
             )
-            await interaction.followup.send(embed=embed)
+            await interaction.followup.send(embed=embed, ephemeral=True)
             return
 
         embed = discord.Embed(
@@ -83,7 +83,7 @@ class CouponCog(commands.Cog):
             colour=discord.Colour.blurple(),
         )
 
-        await interaction.followup.send(embed=embed)
+        await interaction.followup.send(embed=embed, ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
