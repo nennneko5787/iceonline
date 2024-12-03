@@ -15,10 +15,8 @@ class CouponCog(commands.Cog):
         self.client = httpx.AsyncClient()
 
     @app_commands.command(
-        name="quickmatch",
-        description=app_commands.locale_str(
-            "クイックマッチの現在の情報を取得します。アカウントをリンクする必要があります。"
-        ),
+        name="coupon",
+        description=app_commands.locale_str("クーポンを使用します。"),
     )
     async def quickMatchCommand(self, interaction: discord.Interaction):
         await interaction.response.defer()
