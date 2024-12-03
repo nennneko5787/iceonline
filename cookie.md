@@ -1,7 +1,5 @@
 # 氷クッキー
 
-しね
-
 ## /Play/GetMyEventBoxFailCount
 
 ```
