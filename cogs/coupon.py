@@ -64,7 +64,7 @@ class CouponCog(commands.Cog):
             return
 
         result = response.text
-        if "NG" in result:
+        if "NO" in result:
             embed = discord.Embed(
                 title=await self.bot.tree.translator.translate(
                     app_commands.locale_str(
