@@ -15,7 +15,8 @@ INFO:     172.21.32.1:0 - "POST /User/GetMailList HTTP/1.1" 200 OK
 
 - 0: gold(たぶん)
 - 1: ice
-- 2: キューブ(たぶん)
+- 2: マイレージ
+- 3: キューブ(たぶん)
 - 50: 高級箱
 
 ## /User/GetMailBosang
