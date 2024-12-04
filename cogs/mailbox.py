@@ -49,8 +49,8 @@ class MailBoxCog(commands.Cog):
                 customField = customId.split(",")
                 if customField[0] == "mailbox":
                     selectField = interaction.data["values"][0].split(",")
-                    mailIndex: int = selectField[0]
-                    _bosangType: int = selectField[1]
+                    mailIndex: int = int(selectField[0])
+                    _bosangType: int = int(selectField[1])
 
                     row = await Database.pool.fetchrow(
                         "SELECT * FROM members WHERE id = $1", interaction.user.id
