@@ -119,7 +119,7 @@ class MailBoxCog(commands.Cog):
                             app_commands.locale_str(
                                 "{bosang} を受け取りました！",
                                 fmt_arg={
-                                    "bosang": f"{self.detectBosang(_bosangType, interaction.locale)} ({_bosangType})"
+                                    "bosang": f"{await self.detectBosang(_bosangType, interaction.locale)} ({_bosangType})"
                                 },
                             ),
                             interaction.locale,
