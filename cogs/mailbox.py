@@ -48,7 +48,7 @@ class MailBoxCog(commands.Cog):
                 customId = interaction.data["custom_id"]
                 customField = customId.split(",")
                 if customField[0] == "mailbox":
-                    await interaction.response.defer()
+                    await interaction.response.defer(ephemeral=True)
                     selectField = interaction.data["values"][0].split(",")
                     mailIndex: int = int(selectField[0])
                     _bosangType: int = int(selectField[1])
@@ -95,7 +95,7 @@ class MailBoxCog(commands.Cog):
                             ),
                             colour=discord.Colour.red(),
                         )
-                        await interaction.followup.send(embed=embed)
+                        await interaction.followup.send(embed=embed, ephemeral=True)
                         return
 
                     jsonData: dict = response.json()
@@ -109,7 +109,7 @@ class MailBoxCog(commands.Cog):
                             ),
                             colour=discord.Colour.red(),
                         )
-                        await interaction.followup.send(embed=embed)
+                        await interaction.followup.send(embed=embed, ehemeral=True)
                         return
 
                     bosangType: int = jsonData.get("bosang_type")
@@ -133,7 +133,7 @@ class MailBoxCog(commands.Cog):
                         ),
                         colour=discord.Colour.red(),
                     )
-                    await interaction.followup.send(embed=embed)
+                    await interaction.followup.send(embed=embed , ephemeral=True)
 
     @app_commands.command(
         name="mailbox",
