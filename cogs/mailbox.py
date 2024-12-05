@@ -48,6 +48,7 @@ class MailBoxCog(commands.Cog):
                 customId = interaction.data["custom_id"]
                 customField = customId.split(",")
                 if customField[0] == "mailbox":
+                    await interaction.response.defer()
                     selectField = interaction.data["values"][0].split(",")
                     mailIndex: int = int(selectField[0])
                     _bosangType: int = int(selectField[1])
