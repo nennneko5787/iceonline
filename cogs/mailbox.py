@@ -36,6 +36,10 @@ class MailBoxCog(commands.Cog):
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("高級箱"), locale
                 )
+            case 150:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("フリーズパス経験値"), locale
+                )
             case _:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("不明"), locale
