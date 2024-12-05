@@ -118,6 +118,7 @@ class UserInfoCog(commands.Cog):
             return
 
         jsonData: dict = response.json()
+        print(jsonData)
         if jsonData.get("msg", "NG") != "OK":
             embed = discord.Embed(
                 title=await self.bot.tree.translator.translate(

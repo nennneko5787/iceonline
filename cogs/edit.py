@@ -145,6 +145,7 @@ class EditProfileCog(commands.Cog):
                 )
                 await interaction.followup.send(embed=embed)
                 return
+            print(response.json())
             updated = True
 
         if showbirthday:
@@ -167,6 +168,7 @@ class EditProfileCog(commands.Cog):
                 )
                 await interaction.followup.send(embed=embed)
                 return
+            print(response.json())
             updated = True
 
         localVars = locals()
@@ -193,10 +195,11 @@ class EditProfileCog(commands.Cog):
                     )
                     await interaction.followup.send(embed=embed)
                     return
+                print(response.json())
                 updated = True
 
         for index in range(1, 9):
-            fieldValue = localVars.get(f"field{index}values")
+            fieldValue = localVars.get(f"field{index}value")
             if fieldValue:
                 response = await self.client.post(
                     "https://iceonline.azurewebsites.net/User/ManageUserIntroduce",
@@ -217,6 +220,7 @@ class EditProfileCog(commands.Cog):
                     )
                     await interaction.followup.send(embed=embed)
                     return
+                print(response.json())
                 updated = True
 
         if updated:
