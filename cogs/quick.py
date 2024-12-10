@@ -262,7 +262,7 @@ class QuickMatchCog(commands.Cog):
                 interaction.locale,
             ),
             colour=discord.Colour.blurple(),
-        )
+        ).set_footer(text=interaction.user.display_name, icon_url=interaction.user.display_avatar.url)
 
         view = discord.ui.View(timeout=None)
         view.add_item(
