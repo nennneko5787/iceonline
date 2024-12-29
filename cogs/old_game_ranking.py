@@ -8,7 +8,7 @@ from discord import app_commands
 from discord.ext import commands
 
 
-class WeekPopularRankingCog(commands.Cog):
+class GameRankingCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.client = httpx.AsyncClient()
@@ -18,7 +18,7 @@ class WeekPopularRankingCog(commands.Cog):
         if interaction.type == discord.InteractionType.component:
             customId = interaction.data["custom_id"]
             customField = customId.split(",")
-            if customField[0] == "wpranking":
+            if customField[0] == "gameranking":
                 if interaction.user.id != int(customField[1]):
                     embed = discord.Embed(
                         title=await self.bot.tree.translator.translate(
@@ -38,17 +38,48 @@ class WeekPopularRankingCog(commands.Cog):
                     editInteraction=True,
                 )
 
+    async def rankerTypeToString(self, rankerType: int, locale: discord.Locale):
+        match rankerType:
+            case 101:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("こおり鬼モード"), locale
+                )
+            case 102:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("チームバトルモード"), locale
+                )
+            case 103:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("1対1モード"), locale
+                )
+            case 104:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("旗取りモード"), locale
+                )
+            case 107:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("墜落モード"), locale
+                )
+            case 111:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("こおり鬼(チーム)"), locale
+                )
+            case _:
+                return await self.bot.tree.translator.translate(
+                    app_commands.locale_str("不明"), locale
+                )
+
     @app_commands.command(
-        name="wpranking",
-        description=app_commands.locale_str("週間人気度ランキングを確認します。"),
+        name="gameranking",
+        description=app_commands.locale_str("各モードのランキングを確認します。"),
     )
-    async def weekPopularRankingCommand(self, interaction: discord.Interaction):
+    async def gameRankingCommand(self, interaction: discord.Interaction):
         await self.responseGameRanking(interaction)
 
     async def responseGameRanking(
         self,
         interaction: discord.Interaction,
-        page: int = 3,
+        rankerType: int = 101,
         *,
         editInteraction: bool = False,
     ):
@@ -56,7 +87,7 @@ class WeekPopularRankingCog(commands.Cog):
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/User/GetRankerCostumes",
             headers={"content-type": "application/json; charset=utf-8"},
-            json={"ranker_page": str(page), "ranker_type": "1100"},
+            json={"ranker_page": "3", "ranker_type": f"{rankerType}"},
         )
         if response.status_code != 200:
             embed = discord.Embed(
@@ -94,9 +125,7 @@ class WeekPopularRankingCog(commands.Cog):
             embeds.append(
                 discord.Embed(
                     title=await self.bot.tree.translator.translate(
-                        app_commands.locale_str(
-                            "{rank}位", fmt_arg={"rank": (page - 3) + index}
-                        ),
+                        app_commands.locale_str("{rank}位", fmt_arg={"rank": index}),
                         interaction.locale,
                     ),
                     description=nickname,
@@ -111,39 +140,61 @@ class WeekPopularRankingCog(commands.Cog):
             )
 
         view = discord.ui.View(timeout=None)
-        view.add_item(
-            discord.ui.Button(
-                style=discord.ButtonStyle.primary,
-                emoji="⏪",
-                custom_id=f"wpranking,{interaction.user.id},{page - 3}",
-                disabled=(page <= 3),
+        if rankerType == 111:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏪",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 4}",
+                )
             )
-        )
+        elif rankerType == 107:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏪",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 3}",
+                )
+            )
+        elif rankerType > 101:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏪",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 1}",
+                )
+            )
         view.add_item(
             discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
-                label=await self.bot.tree.translator.translate(
-                    app_commands.locale_str(
-                        "ページ {page} / {mode}",
-                        fmt_arg={
-                            "page": (page // 3),
-                            "mode": self.bot.tree.translator.translate(
-                                app_commands.locale_str("週間人気度")
-                            ),
-                        },
-                    ),
-                    interaction.locale,
-                ),
+                label=await self.rankerTypeToString(rankerType, interaction.locale),
                 disabled=True,
             )
         )
-        view.add_item(
-            discord.ui.Button(
-                style=discord.ButtonStyle.primary,
-                emoji="⏩",
-                custom_id=f"wpranking,{interaction.user.id},{page + 3}",
+        if rankerType == 104:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏩",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 3}",
+                )
             )
-        )
+        elif rankerType == 107:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏩",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 4}",
+                )
+            )
+        elif rankerType != 111:
+            view.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.primary,
+                    emoji="⏩",
+                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 1}",
+                )
+            )
 
         if editInteraction:
             await interaction.edit_original_response(embeds=embeds, view=view)
@@ -152,4 +203,4 @@ class WeekPopularRankingCog(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(WeekPopularRankingCog(bot))
+    await bot.add_cog(GameRankingCog(bot))

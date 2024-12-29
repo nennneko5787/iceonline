@@ -19,7 +19,7 @@ class GameRankingCog(commands.Cog):
             customId = interaction.data["custom_id"]
             customField = customId.split(",")
             if customField[0] == "gameranking":
-                if interaction.user.id != int(customField[1]):
+                if interaction.user.id != int(customField[2]):
                     embed = discord.Embed(
                         title=await self.bot.tree.translator.translate(
                             app_commands.locale_str(
@@ -34,11 +34,12 @@ class GameRankingCog(commands.Cog):
 
                 await self.responseGameRanking(
                     interaction,
-                    int(customField[2]),
+                    customField[1],
+                    int(customField[3]),
                     editInteraction=True,
                 )
 
-    async def rankerTypeToString(self, rankerType: int, locale: discord.Locale):
+    async def modeToString(self, rankerType: int, locale: discord.Locale):
         match rankerType:
             case 101:
                 return await self.bot.tree.translator.translate(
@@ -71,15 +72,40 @@ class GameRankingCog(commands.Cog):
 
     @app_commands.command(
         name="gameranking",
-        description=app_commands.locale_str("各モードのランキングを確認します。"),
+        description=app_commands.locale_str("ゲームランキングを確認します。"),
     )
-    async def gameRankingCommand(self, interaction: discord.Interaction):
-        await self.responseGameRanking(interaction)
+    @app_commands.rename(mode=app_commands.locale_str("モード"))
+    @app_commands.describe(mode=app_commands.locale_str("順位を確認したいモード"))
+    @app_commands.choices(
+        mode=[
+            app_commands.Choice(
+                name=app_commands.locale_str("こおり鬼モード"), value="101"
+            ),
+            app_commands.Choice(
+                name=app_commands.locale_str("チームバトルモード"), value="102"
+            ),
+            app_commands.Choice(
+                name=app_commands.locale_str("1対1モード"), value="103"
+            ),
+            app_commands.Choice(
+                name=app_commands.locale_str("旗取りモード"), value="104"
+            ),
+            app_commands.Choice(
+                name=app_commands.locale_str("墜落モード"), value="107"
+            ),
+            app_commands.Choice(
+                name=app_commands.locale_str("こおり鬼(チーム)"), value="111"
+            ),
+        ]
+    )
+    async def gameRankingCommand(self, interaction: discord.Interaction, mode: str):
+        await self.responseGameRanking(interaction, mode)
 
     async def responseGameRanking(
         self,
         interaction: discord.Interaction,
-        rankerType: int = 101,
+        mode: str,
+        page: int = 3,
         *,
         editInteraction: bool = False,
     ):
@@ -87,7 +113,7 @@ class GameRankingCog(commands.Cog):
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/User/GetRankerCostumes",
             headers={"content-type": "application/json; charset=utf-8"},
-            json={"ranker_page": "3", "ranker_type": f"{rankerType}"},
+            json={"ranker_page": str(page), "ranker_type": mode},
         )
         if response.status_code != 200:
             embed = discord.Embed(
@@ -125,7 +151,9 @@ class GameRankingCog(commands.Cog):
             embeds.append(
                 discord.Embed(
                     title=await self.bot.tree.translator.translate(
-                        app_commands.locale_str("{rank}位", fmt_arg={"rank": index}),
+                        app_commands.locale_str(
+                            "{rank}位", fmt_arg={"rank": (page - 3) + index}
+                        ),
                         interaction.locale,
                     ),
                     description=nickname,
@@ -140,61 +168,39 @@ class GameRankingCog(commands.Cog):
             )
 
         view = discord.ui.View(timeout=None)
-        if rankerType == 111:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏪",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 4}",
-                )
+        view.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.primary,
+                emoji="⏪",
+                custom_id=f"gameranking,{mode},{interaction.user.id},{page - 3}",
+                disabled=(page <= 3),
             )
-        elif rankerType == 107:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏪",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 3}",
-                )
-            )
-        elif rankerType > 101:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏪",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType - 1}",
-                )
-            )
+        )
         view.add_item(
             discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
-                label=await self.rankerTypeToString(rankerType, interaction.locale),
+                label=await self.bot.tree.translator.translate(
+                    app_commands.locale_str(
+                        "ページ {page} / {mode}",
+                        fmt_arg={
+                            "page": (page // 3),
+                            "mode": await self.modeToString(
+                                int(mode), interaction.locale
+                            ),
+                        },
+                    ),
+                    interaction.locale,
+                ),
                 disabled=True,
             )
         )
-        if rankerType == 104:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏩",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 3}",
-                )
+        view.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.primary,
+                emoji="⏩",
+                custom_id=f"gameranking,{mode},{interaction.user.id},{page + 3}",
             )
-        elif rankerType == 107:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏩",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 4}",
-                )
-            )
-        elif rankerType != 111:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏩",
-                    custom_id=f"gameranking,{interaction.user.id},{rankerType + 1}",
-                )
-            )
+        )
 
         if editInteraction:
             await interaction.edit_original_response(embeds=embeds, view=view)

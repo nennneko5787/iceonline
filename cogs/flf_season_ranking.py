@@ -113,34 +113,33 @@ class FLFRankingCog(commands.Cog):
             )
 
         view = discord.ui.View(timeout=None)
-        if page > 3:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏪",
-                    custom_id=f"flfranking,{interaction.user.id},{page - 3}",
-                )
+        view.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.primary,
+                emoji="⏪",
+                custom_id=f"flfranking,{interaction.user.id},{page - 3}",
+                disabled=(page <= 3),
             )
+        )
         view.add_item(
             discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
                 label=await self.bot.tree.translator.translate(
                     app_commands.locale_str(
-                        "ページ {page} / 3", fmt_arg={"page": (page // 3)}
+                        "ページ {page} / FLF", fmt_arg={"page": (page // 3)}
                     ),
                     interaction.locale,
                 ),
                 disabled=True,
             )
         )
-        if page < 9:
-            view.add_item(
-                discord.ui.Button(
-                    style=discord.ButtonStyle.primary,
-                    emoji="⏩",
-                    custom_id=f"flfranking,{interaction.user.id},{page + 3}",
-                )
+        view.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.primary,
+                emoji="⏩",
+                custom_id=f"flfranking,{interaction.user.id},{page + 3}",
             )
+        )
 
         if editInteraction:
             await interaction.edit_original_response(embeds=embeds, view=view)
