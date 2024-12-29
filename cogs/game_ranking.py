@@ -41,27 +41,27 @@ class GameRankingCog(commands.Cog):
 
     async def modeToString(self, rankerType: int, locale: discord.Locale):
         match rankerType:
-            case 101:
+            case 101 | 1:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("こおり鬼モード"), locale
                 )
-            case 102:
+            case 102 | 2:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("チームバトルモード"), locale
                 )
-            case 103:
+            case 103 | 3:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("1対1モード"), locale
                 )
-            case 104:
+            case 104 | 4:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("旗取りモード"), locale
                 )
-            case 107:
+            case 107 | 7:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("墜落モード"), locale
                 )
-            case 111:
+            case 111 | 11:
                 return await self.bot.tree.translator.translate(
                     app_commands.locale_str("こおり鬼(チーム)"), locale
                 )
@@ -74,32 +74,36 @@ class GameRankingCog(commands.Cog):
         name="gameranking",
         description=app_commands.locale_str("ゲームランキングを確認します。"),
     )
-    @app_commands.rename(mode=app_commands.locale_str("モード"))
+    @app_commands.rename(
+        mode=app_commands.locale_str("モード"),
+        country=app_commands.locale_str("サーバー"),
+    )
     @app_commands.describe(mode=app_commands.locale_str("順位を確認したいモード"))
     @app_commands.choices(
+        country=[
+            app_commands.Choice(name=app_commands.locale_str("日本"), value=100),
+            app_commands.Choice(name=app_commands.locale_str("韓国"), value=0),
+        ],
         mode=[
             app_commands.Choice(
-                name=app_commands.locale_str("こおり鬼モード"), value="101"
+                name=app_commands.locale_str("こおり鬼モード"), value=1
             ),
             app_commands.Choice(
-                name=app_commands.locale_str("チームバトルモード"), value="102"
+                name=app_commands.locale_str("チームバトルモード"), value=2
             ),
+            app_commands.Choice(name=app_commands.locale_str("1対1モード"), value=3),
+            app_commands.Choice(name=app_commands.locale_str("旗取りモード"), value=4),
+            app_commands.Choice(name=app_commands.locale_str("墜落モード"), value=7),
             app_commands.Choice(
-                name=app_commands.locale_str("1対1モード"), value="103"
+                name=app_commands.locale_str("こおり鬼(チーム)"), value=11
             ),
-            app_commands.Choice(
-                name=app_commands.locale_str("旗取りモード"), value="104"
-            ),
-            app_commands.Choice(
-                name=app_commands.locale_str("墜落モード"), value="107"
-            ),
-            app_commands.Choice(
-                name=app_commands.locale_str("こおり鬼(チーム)"), value="111"
-            ),
-        ]
+        ],
     )
-    async def gameRankingCommand(self, interaction: discord.Interaction, mode: str):
-        await self.responseGameRanking(interaction, mode)
+    async def gameRankingCommand(
+        self, interaction: discord.Interaction, mode: int, country: int
+    ):
+        mode += country
+        await self.responseGameRanking(interaction, str(mode))
 
     async def responseGameRanking(
         self,

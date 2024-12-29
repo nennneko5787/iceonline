@@ -42,12 +42,24 @@ class WeekPopularRankingCog(commands.Cog):
         name="wpranking",
         description=app_commands.locale_str("週間人気度ランキングを確認します。"),
     )
-    async def weekPopularRankingCommand(self, interaction: discord.Interaction):
-        await self.responseGameRanking(interaction)
+    @app_commands.rename(
+        country=app_commands.locale_str("サーバー"),
+    )
+    @app_commands.choices(
+        country=[
+            app_commands.Choice(name=app_commands.locale_str("日本"), value="1100"),
+            app_commands.Choice(name=app_commands.locale_str("韓国"), value="1000"),
+        ],
+    )
+    async def weekPopularRankingCommand(
+        self, interaction: discord.Interaction, country: str
+    ):
+        await self.responseGameRanking(interaction, country)
 
     async def responseGameRanking(
         self,
         interaction: discord.Interaction,
+        mode: str,
         page: int = 3,
         *,
         editInteraction: bool = False,
@@ -56,7 +68,7 @@ class WeekPopularRankingCog(commands.Cog):
         response = await self.client.post(
             "https://iceonline.azurewebsites.net/User/GetRankerCostumes",
             headers={"content-type": "application/json; charset=utf-8"},
-            json={"ranker_page": str(page), "ranker_type": "1100"},
+            json={"ranker_page": str(page), "ranker_type": mode},
         )
         if response.status_code != 200:
             embed = discord.Embed(
